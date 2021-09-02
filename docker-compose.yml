@@ -2,6 +2,7 @@ version: '3.8'
 services:
   db:
     image: postgres:latest
+    container_name: docker-rails-db
     environment:
       - POSTGRES_DB=docker-rails-dev
       - POSTGRES_PASSWORD=password
@@ -11,10 +12,13 @@ services:
       - 'dbdata:/var/lib/postgresql/data'
   redis:
     image: redis:latest
+    container_name: docker-rails-redis
     ports:
       - 6379:6379
   web:
     build: .
+    image: docker-rails
+    container_name: docker-rails-web
     ports:
       - 3000:3000
     depends_on:
